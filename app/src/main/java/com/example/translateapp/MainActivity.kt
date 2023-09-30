@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.translateapp.ui.theme.TranslateAppTheme
@@ -41,8 +42,8 @@ fun MyView() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Hello Android", fontWeight = FontWeight.Bold)
-        Text(text = "The world is yours")
+        Text(text = stringResource(id = R.string.title), fontWeight = FontWeight.Bold)
+        Text(text = stringResource(id = R.string.subtitle))
     }
 }
 
