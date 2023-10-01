@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.translateapp.languages.LanguagesView
 import com.example.translateapp.ui.theme.TranslateAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -27,7 +28,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MyView()
+                    LanguagesView()
+//                    MyView()
                 }
             }
         }
