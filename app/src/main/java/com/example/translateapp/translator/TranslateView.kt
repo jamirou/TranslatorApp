@@ -20,7 +20,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -36,18 +35,19 @@ import androidx.compose.ui.unit.dp
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun TranslateView(viewModel: TranslateViewModel) {
+
     val state = viewModel.state
     val context = LocalContext.current
     val keyboardController = LocalSoftwareKeyboardController.current
     val languageOptions = viewModel.languageOptions
     val itemsSelection = viewModel.itemSelection
-    var indexSource by remember { mutableIntStateOf(0) }
-    var indexTarget by remember { mutableIntStateOf(1) }
-    var expandedSource by remember { mutableStateOf(false) }
+    var indexSource by remember { mutableStateOf(0) }
+    var indexTarget by remember { mutableStateOf(1) }
+    var expandSource by remember { mutableStateOf(false) }
     var expandTarget by remember { mutableStateOf(false) }
+
     var selectedSourceLang by remember { mutableStateOf(languageOptions[0]) }
     var selectedTargetLang by remember { mutableStateOf(languageOptions[1]) }
-
 
     Column(
         modifier = Modifier
@@ -55,23 +55,24 @@ fun TranslateView(viewModel: TranslateViewModel) {
             .padding(10.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
         Row(verticalAlignment = Alignment.CenterVertically) {
             DropDownLang(
                 itemSelection = itemsSelection,
                 selectedIndex = indexSource,
-                expand = expandedSource,
-                onClickExpanded = { expandedSource = true },
-                onClickDismiss = { expandedSource = false },
+                expand = expandSource,
+                onClickExpanded = { expandSource = true },
+                onClickDismiss = { expandSource = false },
                 onClickItem = { index ->
                     indexSource = index
                     selectedSourceLang = languageOptions[index]
-                    expandedSource = false
+                    expandSource = false
                 }
             )
+
             Icon(
-                Icons.Default.ArrowForward, contentDescription = "Translate",
-                modifier = Modifier
-                    .padding(start = 15.dp, end = 15.dp)
+                Icons.Default.ArrowForward, contentDescription = "",
+                modifier = Modifier.padding(start = 15.dp, end = 15.dp)
             )
 
             DropDownLang(
@@ -89,14 +90,15 @@ fun TranslateView(viewModel: TranslateViewModel) {
         }
 
         Spacer(modifier = Modifier.height(15.dp))
+
         OutlinedTextField(
             value = state.textToTranslate,
             onValueChange = { viewModel.onValue(it) },
             label = { Text(text = "Write...") },
-            KeyboardOptions = KeyboardOptions.Default.copy(
+            keyboardOptions = KeyboardOptions.Default.copy(
                 imeAction = ImeAction.Done
             ),
-            KeyboardActions = KeyboardActions(
+            keyboardActions = KeyboardActions(
                 onDone = {
                     viewModel.onTranslate(
                         state.textToTranslate,
@@ -112,10 +114,11 @@ fun TranslateView(viewModel: TranslateViewModel) {
             ),
             modifier = Modifier.fillMaxWidth()
         )
-        if (state.isDownloading) {
+
+        if (state.isDownloading){
             CircularProgressIndicator()
-            Text(text = "Downloading model...")
-        } else {
+            Text(text = "Downloading model")
+        }else{
             OutlinedTextField(
                 value = state.translateText,
                 onValueChange = {},
@@ -125,12 +128,10 @@ fun TranslateView(viewModel: TranslateViewModel) {
                     focusedBorderColor = Color.Transparent,
                     unfocusedBorderColor = Color.Transparent
                 ),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight()
-                )
+                modifier = Modifier.fillMaxWidth().fillMaxHeight()
+            )
         }
 
-
     }
+
 }
