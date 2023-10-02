@@ -1,8 +1,12 @@
 package com.example.translateapp.translator
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -28,6 +32,9 @@ fun TranslateView(viewModel: TranslateViewModel) {
     var indexTarget by remember { mutableIntStateOf(1) }
     var expandedSource by remember { mutableStateOf(false) }
     var expandTarget by remember { mutableStateOf(false) }
+    var selectedSourceLang by remember { mutableStateOf(languageOptions[0]) }
+    var selectedTargetLang by remember { mutableStateOf(languageOptions[1]) }
+
 
     Column(
         modifier = Modifier
@@ -35,6 +42,38 @@ fun TranslateView(viewModel: TranslateViewModel) {
             .padding(10.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            DropDownLang(
+                itemSelection = itemsSelection,
+                selectedIndex = indexSource,
+                expand = expandedSource,
+                onClickExpanded = { expandedSource = true },
+                onClickDismiss = { expandedSource = false },
+                onClickItem = { index ->
+                    indexSource = index
+                    selectedSourceLang = languageOptions[index]
+                    expandedSource = false
+                }
+            )
+            Icon(
+                Icons.Default.ArrowForward, contentDescription = "Translate",
+                modifier = Modifier
+                    .padding(start = 15.dp, end = 15.dp)
+            )
+
+            DropDownLang(
+                itemSelection = itemsSelection,
+                selectedIndex = indexTarget,
+                expand = expandTarget,
+                onClickExpanded = { expandTarget = true },
+                onClickDismiss = { expandTarget = false },
+                onClickItem = { index ->
+                    indexTarget = index
+                    selectedTargetLang = languageOptions[index]
+                    expandTarget = false
+                }
+            )
+        }
+
     }
 }
