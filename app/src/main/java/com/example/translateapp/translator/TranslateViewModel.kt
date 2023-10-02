@@ -20,6 +20,19 @@ class TranslateViewModel : ViewModel() {
         state = state.copy(textToTranslate = text)
     }
 
+    val languageOptions = listOf(
+        TranslateLanguage.SPANISH,
+        TranslateLanguage.ENGLISH,
+        TranslateLanguage.ITALIAN,
+        TranslateLanguage.FRENCH
+    )
+    val itemSelection = listOf(
+        "SPANISH",
+        "ENGLISH",
+        "ITALIAN",
+        "FRENCH"
+    )
+
     fun onTranslate(text: String, context: Context, sourceLang: String, targetLang: String) {
         val options = TranslatorOptions
             .Builder()
