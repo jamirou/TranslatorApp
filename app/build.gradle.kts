@@ -55,6 +55,7 @@ dependencies {
     //DATA STORE
     implementation(libs.androidx.datastore.preferences.android)
 
+    implementation(libs.translate)
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.activity.compose)
