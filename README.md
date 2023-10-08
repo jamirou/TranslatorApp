@@ -1,3 +1,4 @@
+
 # TranslateApp
 
 TranslateApp es una aplicación Android que te permite traducir texto de un idioma a otro de manera rápida y sencilla. Esta aplicación utiliza Jetpack Compose y Kotlin para ofrecer una experiencia de usuario intuitiva y eficiente en la traducción de texto.
